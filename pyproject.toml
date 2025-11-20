@@ -11,13 +11,16 @@ packages = [{include = "manimator"}]
 python = ">=3.11,<3.13"
 fastapi = "^0.115.6"
 uvicorn = "^0.34.0"
-python-dotenv = "^1.0.1"
+python-dotenv = "0.21.0"
 litellm = "^1.56.10"
 python-multipart = "^0.0.20"
 tenacity = "^9.0.0"
 manim = "^0.18.1"
 pypdf2 = "^3.0.1"
 gradio = "^5.9.1"
+google-genai = "^1.51.0"
+manim-voiceover = {extras = ["gtts"], version = "^0.3.7"}
+setuptools = "^80.9.0"
 
 [tool.poetry.scripts]
 app = "manimator.main:main"

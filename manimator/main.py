@@ -78,7 +78,7 @@ async def generate_animation(request: PromptRequest):
                 raise HTTPException(
                     status_code=400, detail="No valid Manim code generated"
                 )
-            class_match = re.search(r"class (\w+)\(Scene\)", code)
+            class_match = re.search(r"class (\w+)\((VoiceoverScene|Scene)\)", code)
             if not class_match:
                 raise HTTPException(
                     status_code=400, detail="No Scene class found in code"

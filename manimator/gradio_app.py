@@ -31,7 +31,7 @@ def process_prompt(prompt: str):
                         "No valid Manim code generated after multiple attempts",
                     )
 
-                class_match = re.search(r"class (\w+)\(Scene\)", code)
+                class_match = re.search(r"class (\w+)\((VoiceoverScene|Scene)\)", code)
                 if not class_match:
                     attempts += 1
                     if attempts < max_attempts:
