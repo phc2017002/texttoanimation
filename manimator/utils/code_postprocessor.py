@@ -28,6 +28,7 @@ def fix_surrounding_rectangles(code: str) -> str:
     """
     lines = code.split('\n')
     fixed_lines = []
+    skip_next = False  # Initialize before the loop
     
     for line in lines:
         # Pattern: SurroundingRectangle with indexed access like equation[0][5]
