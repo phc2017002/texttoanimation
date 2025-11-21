@@ -5,9 +5,13 @@ Generates Manim code for 3D animations using LLM.
 """
 
 import os
+import re
 from typing import Optional
-from litellm import completion
-from .prompts_3d import get_3d_system_prompt, get_3d_examples
+from fastapi import HTTPException
+import litellm
+
+from .prompts_3d import get_3d_system_prompt, get_3d_examples, SYSTEM_PROMPT_3D
+from manimator.utils.code_postprocessor import post_process_code
 
 
 def generate_3d_animation_response(
@@ -16,41 +20,35 @@ def generate_3d_animation_response(
     include_examples: bool = True
 ) -> str:
     """
-    Generate Manim 3D animation code from a text prompt.
+    Generate 3D Manim animation code from a text prompt.
     
     Args:
-        user_prompt: User's description of the desired 3D animation
-        model: LLM model to use (defaults to env variable CODE_GEN_MODEL)
-        include_examples: Whether to include example code in the prompt
-        
+        user_prompt: User's request for a 3D animation
+        model: LiteLLM model to use (defaults to CODE_GEN_MODEL env var)
+        include_examples: Whether to include example code in the system prompt
+    
     Returns:
-        Generated Python code for Manim 3D animation
-        
-    Example:
-        >>> code = generate_3d_animation_response(
-        ...     "Create a 3D animation showing a rotating DNA helix"
-        ... )
-        >>> print(code)
+        Generated 3D Manim animation code (post-processed)
+    
+    Raises:
+        HTTPException: If code generation fails
     """
-    if model is None:
-        model = os.getenv("CODE_GEN_MODEL", "anthropic/claude-sonnet-4.5")
-    
-    # Build system prompt
-    system_prompt = get_3d_system_prompt()
-    
-    # Add examples if requested
-    if include_examples:
-        examples = get_3d_examples()
-        examples_text = "\n\n".join([
-            f"## {name.upper()} EXAMPLE\n{code}"
-            for name, code in examples.items()
-        ])
-        system_prompt += f"\n\nHERE ARE SOME EXAMPLES:\n\n{examples_text}"
-    
-    # Build messages
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": f"""Create a complete, runnable Manim 3D animation for the following request:
+    try:
+        # Build system prompt
+        system_prompt = get_3d_system_prompt()
+        
+        if include_examples:
+            examples = get_3d_examples()
+            examples_text = "\n\n".join([
+                f"## {name.upper()} EXAMPLE\n{code}"
+                for name, code in examples.items()
+            ])
+            system_prompt += f"\n\nHERE ARE SOME EXAMPLES:\n\n{examples_text}"
+        
+        # Build messages
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"""Create a complete, runnable Manim 3D animation for the following request:
 
 {user_prompt}
 
@@ -64,17 +62,40 @@ Requirements:
 7. Aim for 2-5 minutes duration (or as specified)
 
 Generate ONLY the Python code, nothing else."""}
-    ]
-    
-    # Call LLM
-    response = completion(
-        model=model,
-        messages=messages,
-        temperature=0.7,
-        max_tokens=4000
-    )
-    
-    return response.choices[0].message.content
+        ]
+        
+        # Use specified model or default
+        if model is None:
+            model = os.getenv("CODE_GEN_MODEL")
+        
+        # Generate code
+        response = litellm.completion(
+            model=model,
+            messages=messages,
+            num_retries=2
+        )
+        
+        raw_code = response.choices[0].message.content
+        
+        # Extract code if wrapped in markdown
+        pattern = r'```python\n(.*?)```'
+        match = re.search(pattern, raw_code, re.DOTALL)
+        
+        if match:
+            code = match.group(1)
+        else:
+            code = raw_code
+        
+        # Post-process the code to fix common issues
+        processed_code = post_process_code(code)
+        
+        return processed_code
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to generate 3D animation: {str(e)}"
+        )
 
 
 def generate_3d_animation_with_category(
