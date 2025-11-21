@@ -89,7 +89,7 @@ class ManimProcessor:
 
         cmd = [
             "manim",
-            "-pql",
+            "-pqh",
             "--media_dir",
             temp_dir,
             scene_file,
@@ -99,7 +99,7 @@ class ManimProcessor:
         try:
             subprocess.run(cmd, check=True, capture_output=True, text=True)
             video_path = os.path.join(
-                temp_dir, "videos", "scene", "480p15", f"{scene_name}.mp4"
+                temp_dir, "videos", "scene", "1080p60", f"{scene_name}.mp4"
             )
 
             if not os.path.exists(video_path):
