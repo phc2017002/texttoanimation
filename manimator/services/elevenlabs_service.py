@@ -123,22 +123,27 @@ class ElevenLabsService(SpeechService):
         ).hexdigest()
         return self.cache_dir / f"{cache_key}.mp3"
     
-    def generate_from_text(self, text: str, cache_dir: Optional[str] = None, **kwargs) -> str:
+    def generate_from_text(self, text: str, cache_dir: Optional[str] = None, path: Optional[str] = None, **kwargs) -> dict:
         """
         Generate speech from text using ElevenLabs API.
         
         Args:
             text: Text to convert to speech
-            cache_dir: Override default cache directory
+            cache_dir: Override default cache directory (not used, for compatibility)
+            path: Override path for audio file (not used, for compatibility)
             **kwargs: Additional parameters
         
         Returns:
-            Path to generated audio file
+            Dictionary with audio file paths (required by manim-voiceover)
         """
         # Check cache first
         cache_path = self._get_cache_path(text)
         if cache_path.exists():
-            return str(cache_path)
+            return {
+                "original_audio": str(cache_path),
+                "final_audio": str(cache_path),
+                "text": text
+            }
         
         try:
             # Call ElevenLabs API
@@ -148,12 +153,16 @@ class ElevenLabsService(SpeechService):
             with open(cache_path, 'wb') as f:
                 f.write(audio_data)
             
-            return str(cache_path)
+            return {
+                "original_audio": str(cache_path),
+                "final_audio": str(cache_path),
+                "text": text
+            }
             
         except Exception as e:
             print(f"⚠️  ElevenLabs API error: {e}")
             print("   Falling back to gTTS...")
-            return self._use_fallback(text)
+            return self._use_fallback(text, cache_dir=cache_dir, path=path, **kwargs)
     
     def _call_api(self, text: str) -> bytes:
         """
@@ -193,15 +202,18 @@ class ElevenLabsService(SpeechService):
         
         return response.content
     
-    def _use_fallback(self, text: str) -> str:
+    def _use_fallback(self, text: str, cache_dir: Optional[str] = None, path: Optional[str] = None, **kwargs) -> dict:
         """
         Use gTTS as fallback when ElevenLabs fails.
         
         Args:
             text: Text to convert
+            cache_dir: Cache directory for gTTS
+            path: Path for audio file
+            **kwargs: Additional parameters
         
         Returns:
-            Path to generated audio file
+            Dictionary with audio file paths
         """
         if self.fallback_service is None:
             try:
@@ -212,7 +224,7 @@ class ElevenLabsService(SpeechService):
                     "gTTS fallback not available. Install with: pip install gTTS"
                 )
         
-        return self.fallback_service.generate_from_text(text)
+        return self.fallback_service.generate_from_text(text, cache_dir=cache_dir, path=path, **kwargs)
     
     def get_available_voices(self) -> Dict[str, str]:
         """
