@@ -2,11 +2,11 @@ import os
 import litellm
 from fastapi import HTTPException
 
-from ..utils.system_prompts import MANIM_SYSTEM_PROMPT
+from ..utils.system_prompts import get_system_prompt
 from ..utils.code_postprocessor import post_process_code
 
 
-def generate_animation_response(prompt: str) -> str:
+def generate_animation_response(prompt: str, category: str = "mathematical") -> str:
     """Generate Manim animation code from a text prompt.
 
     Args:
@@ -20,10 +20,11 @@ def generate_animation_response(prompt: str) -> str:
     """
 
     try:
+        system_prompt = get_system_prompt(category)
         messages = [
             {
                 "role": "system",
-                "content": MANIM_SYSTEM_PROMPT,
+                "content": system_prompt,
             },
             {
                 "role": "user",
