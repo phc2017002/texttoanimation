@@ -302,7 +302,7 @@ class VideoGenerator:
                     job["quality"]
                 )
                 
-                # Stage 3: Visual Verification Loop
+                # Stage 3: Visual Verification Loop (Gemini Fixes)
                 max_retries = 5
                 verification_passed = False
                 
@@ -318,11 +318,11 @@ class VideoGenerator:
                         }
                     )
                     
-                    # Run analysis
+                    # Run analysis and fix (using Gemini for fixes now)
                     final_code, report = self.analyzer.analyze_and_fix(
                         code,
                         video_path,
-                        max_iterations=1
+                        max_iterations=1 # Analyze once per loop iteration
                     )
                     
                     # If code is unchanged, we are good
@@ -332,7 +332,7 @@ class VideoGenerator:
                         break
                     
                     # Issues found, applying fixes
-                    logger.info(f"🛠️ Issues found! Applying fixes and re-rendering (Attempt {i+1})...")
+                    logger.info(f"🛠️ Issues found! Applying fixes using Claude and re-rendering (Attempt {i+1})...")
                     code = final_code
                     
                     # Save fixed code
@@ -350,17 +350,18 @@ class VideoGenerator:
                     # Success! Break the outer regeneration loop
                     break
                 else:
-                    # Verification failed after max retries
-                    logger.warning(f"⚠️ Layout issues persisted after {max_retries} fix attempts.")
+                    # Verification failed after max retries (Gemini couldn't fix it)
+                    logger.warning(f"⚠️ Layout issues persisted after {max_retries} Gemini fix attempts.")
+                    
+                    # Trigger Claude Fallback (Regeneration)
                     regeneration_count += 1
-                    if regeneration_count > max_regenerations:
+                    if regeneration_count <= max_regenerations:
+                        logger.warning(f"🔄 Triggering Claude Fallback: Regenerating scene from scratch (Attempt {regeneration_count})...")
+                        continue # Loop back to regenerate code with Claude
+                    else:
                         logger.error("❌ Max regenerations exceeded. Failing job.")
-                        # We could fail here, or just accept the best effort.
-                        # Let's accept the best effort but mark it.
                         logger.info("⚠️ Accepting best effort video.")
                         break
-                    else:
-                        continue # Loop back to regenerate code
             
             except Exception as e:
                 logger.error(f"Error in generation loop: {e}")

@@ -386,8 +386,8 @@ def validate_code_structure(code: str) -> List[str]:
         if re.search(r'SurroundingRectangle\([^,\)]*\[\d+\]', code):
             warnings.append("Code contains indexed SurroundingRectangle calls (will be auto-fixed)")
     
-    if 'from manim_voiceover.services.gtts import GTTSService' in code:
-        warnings.append("Code still uses deprecated GTTSService (should use ElevenLabsService)")
+    # if 'from manim_voiceover.services.gtts import GTTSService' in code:
+    #     warnings.append("Code still uses deprecated GTTSService (should use ElevenLabsService)")
     
     # New layout validations
     if 'get_y_axis_label' in code and 'direction=LEFT' not in code:

@@ -1,0 +1,17 @@
+{
+  "job_id": "800bd134-3034-4438-8888-c5d84f3abb15",
+  "status": "completed",
+  "prompt": "Create a 5-minute animation on quantum mechanics in three dimension with visualizations",
+  "quality": "high",
+  "scene_name": "quantum_mechanics_in_three_dimensions",
+  "created_at": "2025-11-22T12:06:01.482815",
+  "updated_at": "2025-11-22T12:13:50.631708",
+  "progress": {
+    "stage": "completed",
+    "percentage": 100,
+    "message": "Video generation completed successfully"
+  },
+  "error": null,
+  "video_path": "/Users/aniketpal/Downloads/manimator/media/videos/scene_800bd134-3034-4438-8888-c5d84f3abb15/1080p60/QuantumMechanics3D.mp4",
+  "code_path": "/Users/aniketpal/Downloads/manimator/scene_800bd134-3034-4438-8888-c5d84f3abb15.py"
+}

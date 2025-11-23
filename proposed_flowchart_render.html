@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposed Manimator Pipeline Flowchart</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: white;
+        }
+
+        .mermaid {
+            background-color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mermaid">
+        flowchart TD
+        Start([User Prompt])
+        ClaudeGen[Claude 4.5 Sonnet\n(Initial Code Gen)]
+        RenderDraft[Render Draft Video]
+
+        subgraph GeminiLoop [Gemini Verification Loop (Max 5)]
+        direction TB
+        GeminiVerify{Gemini 3 Pro\nVerify Frames}
+        GeminiFix[Gemini 3 Pro\nFix Code]
+        LoopCount{Retry < 5?} end subgraph ClaudeFallback [Claude Fallback (Max 1)] ClaudeRegen[Claude 4.5
+            Sonnet\nRegenerate Code] RegenCount{Regen < 1?} end FinalRender[Final Video Generation] End([Complete])
+            Start --> ClaudeGen
+            ClaudeGen --> RenderDraft
+            RenderDraft --> GeminiVerify
+
+            GeminiVerify -- Issues Found --> LoopCount
+            LoopCount -- Yes --> GeminiFix
+            GeminiFix --> RenderDraft
+
+            LoopCount -- No (Max Retries) --> RegenCount
+            RegenCount -- Yes --> ClaudeRegen
+            ClaudeRegen --> RenderDraft
+
+            GeminiVerify -- No Issues --> FinalRender
+            RegenCount -- No (Max Regens) --> FinalRender
+
+            FinalRender --> End
+    </div>
+</body>
+
+</html>

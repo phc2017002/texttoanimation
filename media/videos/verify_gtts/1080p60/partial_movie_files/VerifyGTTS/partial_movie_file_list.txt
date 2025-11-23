@@ -1,0 +1,8 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/aniketpal/Downloads/manimator/media/videos/verify_gtts/1080p60/partial_movie_files/VerifyGTTS/3529212410_485365829_223132457.mp4'
+file 'file:/Users/aniketpal/Downloads/manimator/media/videos/verify_gtts/1080p60/partial_movie_files/VerifyGTTS/3040924799_2268332985_1126433116.mp4'
+file 'file:/Users/aniketpal/Downloads/manimator/media/videos/verify_gtts/1080p60/partial_movie_files/VerifyGTTS/3040924799_427583692_1876955840.mp4'
+file 'file:/Users/aniketpal/Downloads/manimator/media/videos/verify_gtts/1080p60/partial_movie_files/VerifyGTTS/3040924799_3262738340_1928695165.mp4'
+file 'file:/Users/aniketpal/Downloads/manimator/media/videos/verify_gtts/1080p60/partial_movie_files/VerifyGTTS/3040924799_1041651050_2148088003.mp4'
+file 'file:/Users/aniketpal/Downloads/manimator/media/videos/verify_gtts/1080p60/partial_movie_files/VerifyGTTS/3040924799_2268332985_3507566123.mp4'
+file 'file:/Users/aniketpal/Downloads/manimator/media/videos/verify_gtts/1080p60/partial_movie_files/VerifyGTTS/3040924799_3377382724_32436419.mp4'

@@ -21,11 +21,10 @@ MANIM_SYSTEM_PROMPT = r"""```You are an expert in creating educational animation
    - Make sure that each scene is properly cleaned up before transitioning to the next scene.
 
 3. **Write the Manim Code**:
-   - **Import**: `from manim import *` AND `from manim_voiceover import VoiceoverScene` AND `from manimator.services import ElevenLabsService`.
+   - **Import**: `from manim import *` AND `from manim_voiceover import VoiceoverScene` AND `from manim_voiceover.services.gtts import GTTSService`.
    - **Class**: Define your class inheriting from `VoiceoverScene` (NOT `Scene`).
-   - **Setup**: In `construct`, initialize the speech service: `self.set_speech_service(ElevenLabsService(voice_id="Rachel"))`.
-     * Available voices: Rachel (warm, educational), Adam (professional), Bella (engaging), Josh (clear, authoritative)
-     * Uses natural AI voices for better quality
+   - **Setup**: In `construct`, initialize the speech service: `self.set_speech_service(GTTSService(lang="en", tld="com"))`.
+     * Uses Google Text-to-Speech (free, no API key required)
    - **Voiceover**: Use `with self.voiceover(text="Your narration here") as tracker:` for EVERY step.
    - **Synchronization**: Put your animations INSIDE the `with self.voiceover` block to sync them with audio.
    - **Content**:
@@ -132,11 +131,11 @@ MANIM_SYSTEM_PROMPT = r"""```You are an expert in creating educational animation
 ```python
 from manim import *
 from manim_voiceover import VoiceoverScene
-from manimator.services import ElevenLabsService
+from manim_voiceover.services.gtts import GTTSService
 
 class NeuralNetworkExplanation(VoiceoverScene):
     def construct(self):
-        self.set_speech_service(ElevenLabsService(voice_id="Rachel"))
+        self.set_speech_service(GTTSService(lang="en", tld="com"))
 
         # Title
         with self.voiceover(text="Welcome to this explanation of Neural Networks. Today we will explore how they work.") as tracker:

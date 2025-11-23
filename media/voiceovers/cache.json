@@ -1087,5 +1087,23 @@
     },
     "original_audio": "quicksort-is-widely-used-due-to-its-efficiency-and-a3dd7243.mp3",
     "final_audio": "quicksort-is-widely-used-due-to-its-efficiency-and-a3dd7243.mp3"
+  },
+  {
+    "input_text": "This is a test of the Google Text to Speech service integration.",
+    "input_data": {
+      "input_text": "This is a test of the Google Text to Speech service integration.",
+      "service": "gtts"
+    },
+    "original_audio": "this-is-a-test-of-the-google-text-to-speech-9d6c34c7.mp3",
+    "final_audio": "this-is-a-test-of-the-google-text-to-speech-9d6c34c7.mp3"
+  },
+  {
+    "input_text": "If you can hear this, the migration was successful.",
+    "input_data": {
+      "input_text": "If you can hear this, the migration was successful.",
+      "service": "gtts"
+    },
+    "original_audio": "if-you-can-hear-this-the-migration-was-successful-95f367d1.mp3",
+    "final_audio": "if-you-can-hear-this-the-migration-was-successful-95f367d1.mp3"
   }
 ]

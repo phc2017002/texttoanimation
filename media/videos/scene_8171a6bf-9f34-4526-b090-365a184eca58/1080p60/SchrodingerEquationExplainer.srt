@@ -1,0 +1,176 @@
+1
+00:00:00,000 --> 00:00:02,625
+Welcome. Today, we dive into the heart of quantum
+
+2
+00:00:02,725 --> 00:00:06,518
+mechanics: The Schrödinger Equation. In classical physics, we describe
+
+3
+00:00:06,618 --> 00:00:08,520
+a ball by its position and momentum.
+
+4
+00:00:08,616 --> 00:00:11,553
+But in the quantum world, objects like electrons are not
+
+5
+00:00:11,653 --> 00:00:15,132
+just particles; they are described by a mathematical object called
+
+6
+00:00:15,232 --> 00:00:17,790
+a Wave Function, denoted by the Greek letter Psi.
+
+7
+00:00:18,883 --> 00:00:23,059
+This is the Time-Dependent Schrödinger Equation. It tells us how the wave
+
+8
+00:00:23,159 --> 00:00:26,750
+function changes over time. Let's break it down piece by piece.
+
+9
+00:00:27,850 --> 00:00:30,148
+First, we have i, the imaginary unit, and
+
+10
+00:00:30,248 --> 00:00:33,599
+h-bar, the reduced Planck's constant. These constants scale
+
+11
+00:00:33,699 --> 00:00:36,056
+the equation, linking energy to frequency.
+
+12
+00:00:36,150 --> 00:00:39,027
+Next is the partial derivative with respect to time. This
+
+13
+00:00:39,127 --> 00:00:41,744
+represents the rate of change of the system's state.
+
+14
+00:00:41,833 --> 00:00:45,443
+On the right side, we have H-hat, the Hamiltonian operator. This
+
+15
+00:00:45,543 --> 00:00:49,674
+represents the total energy of the system: kinetic plus potential energy.
+
+16
+00:00:50,766 --> 00:00:53,148
+But what is Psi? Physically, it's a complex
+
+17
+00:00:53,248 --> 00:00:56,322
+probability amplitude. It can be positive, negative, or
+
+18
+00:00:56,422 --> 00:00:59,208
+even imaginary. Here is a real part visualization.
+
+19
+00:00:59,300 --> 00:01:01,994
+The quantity that we actually measure is the absolute
+
+20
+00:01:02,094 --> 00:01:04,946
+square of Psi. This is the Probability Density function.
+
+21
+00:01:05,033 --> 00:01:08,588
+Where the graph is high, the probability of finding the particle is
+
+22
+00:01:08,688 --> 00:01:11,699
+high. Where it is zero, the particle will never be found.
+
+23
+00:01:12,783 --> 00:01:15,182
+To solve the equation, we must expand the
+
+24
+00:01:15,282 --> 00:01:18,351
+Hamiltonian operator. It consists of two main parts.
+
+25
+00:01:18,450 --> 00:01:21,157
+The first term represents Kinetic Energy. It relates
+
+26
+00:01:21,257 --> 00:01:23,208
+to the curvature of the wave function.
+
+27
+00:01:23,300 --> 00:01:25,650
+The second term, V of x, is the Potential
+
+28
+00:01:25,750 --> 00:01:28,996
+Energy. This describes the external forces acting on the
+
+29
+00:01:29,096 --> 00:01:31,506
+particle, like an electric field or a box.
+
+30
+00:01:32,600 --> 00:01:35,848
+Let's apply this to a classic example: The Particle in a
+
+31
+00:01:35,948 --> 00:01:39,735
+Box. Imagine an electron trapped in a region with infinite walls.
+
+32
+00:01:39,833 --> 00:01:42,851
+Inside the box, the potential is zero. Outside, it is
+
+33
+00:01:42,951 --> 00:01:46,028
+infinite. The wave function must be zero at the walls.
+
+34
+00:01:46,116 --> 00:01:49,084
+The lowest energy state, or ground state, looks like
+
+35
+00:01:49,184 --> 00:01:51,267
+half a sine wave. This is n equals 1.
+
+36
+00:01:51,366 --> 00:01:53,804
+At higher energy, n equals 2, the wave gains a
+
+37
+00:01:53,904 --> 00:01:56,673
+full cycle. Notice the point in the middle where the
+
+38
+00:01:56,773 --> 00:01:59,155
+wave function is zero. This is called a node.
+
+39
+00:01:59,250 --> 00:02:01,925
+As we increase energy to n equals 3, the number of
+
+40
+00:02:02,025 --> 00:02:06,255
+nodes increases. The curvature increases, which implies higher kinetic energy.
+
+41
+00:02:07,350 --> 00:02:10,959
+The Schrödinger equation changed our understanding of reality.
+
+42
+00:02:11,059 --> 00:02:14,668
+It replaced specific trajectories with evolving probabilities.
+
+43
+00:02:14,766 --> 00:02:18,539
+Whether it's understanding atoms, designing lasers, or building quantum
+
+44
+00:02:18,639 --> 00:02:21,484
+computers, it all starts with this beautiful equation.
+

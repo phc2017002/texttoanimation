@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manimator Pipeline Flowchart</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: white;
+        }
+        .mermaid {
+            background-color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mermaid">
+flowchart TD
+    User["User Request"]
+    API["API Server"]
+    CodeGen{"Code Generation"}
+    ClaudeGen["Claude 4.5 Sonnet"]
+    PostProc["Post-Processing"]
+    Render1["Render (Pass 1)"]
+    Verify{"Visual Verification"}
+    ClaudeVis["Gemini 3.0 Pro Preview"]
+    Decision{"Issues Found?"}
+    Fix["Dynamic Code Correction\n(Claude 4.5 Sonnet)"]
+    Render2["Re-Render"]
+    LoopCheck{"Max Retries?"}
+    RegenCheck{"Max Regenerations?"}
+    Final["Final Video"]
+
+    User -->|POST /api/videos| API
+    API --> CodeGen
+    CodeGen -->|Prompt| ClaudeGen
+    ClaudeGen -->|Raw Python| PostProc
+    PostProc -->|Clean Code| Render1
+    Render1 -->|Draft Video| Verify
+    Verify -->|Extract Frames| ClaudeVis
+    ClaudeVis -->|Analysis Report| Decision
+    
+    Decision -- Yes --> LoopCheck
+    LoopCheck -- No (< 5) --> Fix
+    Fix -->|Original Code + Report| Render2
+    Render2 --> Verify
+    
+    LoopCheck -- Yes (>= 5) --> RegenCheck
+    RegenCheck -- No (< 1) --> CodeGen
+    RegenCheck -- Yes (>= 1) --> Final
+    
+    Decision -- No --> Final
+    </div>
+</body>
+</html>

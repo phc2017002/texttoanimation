@@ -1,0 +1,17 @@
+{
+  "job_id": "078efaac-0cc3-4536-a02e-57efc77c78ae",
+  "status": "failed",
+  "prompt": "Create a 5-minute animation explaining circular linked-list in Data strurture with visualizations",
+  "quality": "high",
+  "scene_name": "circular_linked_list",
+  "created_at": "2025-11-22T21:20:05.958694",
+  "updated_at": "2025-11-22T21:29:26.517538",
+  "progress": {
+    "stage": "failed",
+    "percentage": 0,
+    "message": "Generation failed: name 'json' is not defined"
+  },
+  "error": "name 'json' is not defined",
+  "video_path": null,
+  "code_path": "/Users/aniketpal/Downloads/manimator/scene_078efaac-0cc3-4536-a02e-57efc77c78ae.py"
+}

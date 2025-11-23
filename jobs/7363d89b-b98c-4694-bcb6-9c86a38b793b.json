@@ -1,0 +1,17 @@
+{
+  "job_id": "7363d89b-b98c-4694-bcb6-9c86a38b793b",
+  "status": "completed",
+  "prompt": "Create a 3-minute animation explaining Schr\u00f6dinger equation in quantum mechanics with visualizations",
+  "quality": "high",
+  "scene_name": "Schr\u00f6dinger_equation_6",
+  "created_at": "2025-11-22T21:59:29.675934",
+  "updated_at": "2025-11-22T22:10:00.050104",
+  "progress": {
+    "stage": "completed",
+    "percentage": 100,
+    "message": "Video generation completed successfully"
+  },
+  "error": null,
+  "video_path": "/Users/aniketpal/Downloads/manimator/media/videos/scene_7363d89b-b98c-4694-bcb6-9c86a38b793b/1080p60/SchrodingerEquationExplanation.mp4",
+  "code_path": "/Users/aniketpal/Downloads/manimator/scene_7363d89b-b98c-4694-bcb6-9c86a38b793b.py"
+}

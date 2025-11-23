@@ -1,0 +1,17 @@
+{
+  "job_id": "8171a6bf-9f34-4526-b090-365a184eca58",
+  "status": "completed",
+  "prompt": "Create a 5-minute animation explaining the Schr\u00f6dinger equation with wave functions and probability density",
+  "quality": "high",
+  "scene_name": "Schr\u00f6dinger_equation_2",
+  "created_at": "2025-11-21T22:28:38.117724",
+  "updated_at": "2025-11-21T22:30:39.526866",
+  "progress": {
+    "stage": "completed",
+    "percentage": 100,
+    "message": "Video generation completed successfully"
+  },
+  "error": null,
+  "video_path": "/Users/aniketpal/Downloads/manimator/media/videos/scene_8171a6bf-9f34-4526-b090-365a184eca58/1080p60/SchrodingerEquationExplainer.mp4",
+  "code_path": "/Users/aniketpal/Downloads/manimator/scene_8171a6bf-9f34-4526-b090-365a184eca58.py"
+}

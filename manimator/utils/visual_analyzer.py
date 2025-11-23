@@ -27,7 +27,7 @@ class VisualLayoutAnalyzer:
     - Cluttered layouts
     """
     
-    def __init__(self, model: str = "gemini/gemini-exp-1206"):
+    def __init__(self, model: str = DualModelConfig.get_visual_model()):
         """
         Initialize the visual analyzer.
         
@@ -36,7 +36,7 @@ class VisualLayoutAnalyzer:
         """
         self.model = model
     
-    def extract_frames(self, video_path: Path, num_frames: int = 5) -> List[Path]:
+    def extract_frames(self, video_path: Path, num_frames: int = 1) -> List[Path]:
         """
         Extract key frames from video for analysis.
         
@@ -108,26 +108,11 @@ class VisualLayoutAnalyzer:
             })
         
         # Create analysis prompt
-        prompt = """Analyze these frames from a Manim educational animation. You must be VERY STRICT about visual clarity. Look for:
+        prompt = """Analyze these frames from a Manim animation.
+Check for any VISUAL OVERLAPS between text, equations, graphs, or other elements.
+Even a slight overlap is a critical issue.
 
-1. **CRITICAL: Text Overlaps**: Check if ANY text overlaps with:
-   - Other text
-   - Arrows or lines (ESPECIALLY curved arrows)
-   - Shapes (circles, rectangles)
-   - Graph axes or plots
-   Even a slight overlap is an issue.
-
-2. **Out-of-frame content**: Is any text cut off at the edges of the frame?
-
-3. **Legibility**: Is text placed on top of other elements making it hard to read?
-
-4. **Spacing issues**: Are elements too close together or cramped?
-
-For each issue found, provide:
-- Frame number where it occurs
-- Type of issue (overlap/cutoff/spacing)
-- Which elements are affected (e.g., "y-axis label", "equation text")
-- Severity (minor/moderate/severe)
+If you see ANY overlap, return "has_issues": true.
 
 Respond in JSON format:
 ```json
@@ -137,16 +122,12 @@ Respond in JSON format:
     {
       "frame": 0,
       "type": "overlap",
-      "elements": ["y-axis label", "graph line"],
-      "severity": "moderate",
-      "description": "Y-axis label overlaps with the plot"
+      "description": "Description of the overlap (e.g. 'Title overlaps with equation')"
     }
   ],
   "overall_quality": "good/fair/poor"
 }
 ```
-
-If no issues, return: {"has_issues": false, "issues": [], "overall_quality": "good"}
 """
         
         # Build message with images

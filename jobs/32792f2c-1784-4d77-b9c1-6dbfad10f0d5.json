@@ -1,0 +1,17 @@
+{
+  "job_id": "32792f2c-1784-4d77-b9c1-6dbfad10f0d5",
+  "status": "failed",
+  "prompt": "Create a 5-minute animation explaining heisenberg uncertainty principle with visualizations",
+  "quality": "high",
+  "scene_name": "heisenberg_uncertainty",
+  "created_at": "2025-11-22T01:37:24.473051",
+  "updated_at": "2025-11-22T01:39:49.057056",
+  "progress": {
+    "stage": "failed",
+    "percentage": 0,
+    "message": "Error: Manim rendering failed:\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/click/core.py\", line 788, in invoke\nreturn __callback(*args, **kwargs)\n^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/manim/cli/render/commands.py\", line 116, in render\nfor SceneClass in scene_classes_from_file(file):\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/manim/utils/module_ops.py\", line 131, in scene_classes_from_file\nmodule = get_module(file_path)\n^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/manim/utils/module_ops.py\", line 54, in get_module\nspec.loader.exec_module(module)\nFile \"<frozen importlib._bootstrap_external>\", line 995, in exec_module\nFile \"<frozen importlib._bootstrap_external>\", line 1133, in get_code\nFile \"<frozen importlib._bootstrap_external>\", line 1063, in source_to_code\nFile \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\nFile \"/Users/aniketpal/Downloads/manimator/scene_32792f2c-1784-4d77-b9c1-6dbfad10f0d5.py\", line 315\nwave1_axes.move_to(DOWN * 1.5))\n^\nSyntaxError: unmatched ')'"
+  },
+  "error": "Manim rendering failed:\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/click/core.py\", line 788, in invoke\nreturn __callback(*args, **kwargs)\n^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/manim/cli/render/commands.py\", line 116, in render\nfor SceneClass in scene_classes_from_file(file):\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/manim/utils/module_ops.py\", line 131, in scene_classes_from_file\nmodule = get_module(file_path)\n^^^^^^^^^^^^^^^^^^^^^\nFile \"/Users/aniketpal/Library/Caches/pypoetry/virtualenvs/manimator--YWNdu4G-py3.12/lib/python3.12/site-packages/manim/utils/module_ops.py\", line 54, in get_module\nspec.loader.exec_module(module)\nFile \"<frozen importlib._bootstrap_external>\", line 995, in exec_module\nFile \"<frozen importlib._bootstrap_external>\", line 1133, in get_code\nFile \"<frozen importlib._bootstrap_external>\", line 1063, in source_to_code\nFile \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\nFile \"/Users/aniketpal/Downloads/manimator/scene_32792f2c-1784-4d77-b9c1-6dbfad10f0d5.py\", line 315\nwave1_axes.move_to(DOWN * 1.5))\n^\nSyntaxError: unmatched ')'",
+  "video_path": null,
+  "code_path": "/Users/aniketpal/Downloads/manimator/scene_32792f2c-1784-4d77-b9c1-6dbfad10f0d5.py"
+}

@@ -18,7 +18,7 @@ class DualModelConfig:
     CODE_MODEL = "anthropic/claude-sonnet-4.5"
     
     # Visual validation model (multimodal, can see layout)
-    VISUAL_MODEL = "google/gemini-3-pro-preview"
+    VISUAL_MODEL = "openrouter/qwen/qwen3-vl-235b-a22b-instruct"
     
     @classmethod
     def get_code_model(cls) -> str:
@@ -61,6 +61,26 @@ class DualModelConfig:
         
         Returns:
             Validation feedback
+        """
+        response = litellm.completion(
+            model=cls.get_visual_model(),
+            messages=messages,
+            temperature=0.3,
+            **kwargs
+        )
+        return response.choices[0].message.content
+
+    @classmethod
+    def generate_with_gemini(cls, messages: list, **kwargs) -> str:
+        """
+        Generate text/code using Gemini 3 Pro.
+        
+        Args:
+            messages: Chat messages
+            **kwargs: Additional parameters for litellm
+        
+        Returns:
+            Generated content
         """
         response = litellm.completion(
             model=cls.get_visual_model(),

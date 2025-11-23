@@ -1,0 +1,360 @@
+1
+00:00:00,000 --> 00:00:03,769
+Welcome to this comprehensive explanation of the Schrödinger equation,
+
+2
+00:00:03,869 --> 00:00:07,031
+one of the most fundamental equations in quantum mechanics.
+
+3
+00:00:07,116 --> 00:00:09,945
+This equation describes how quantum states evolve over
+
+4
+00:00:10,045 --> 00:00:12,711
+time and forms the foundation of quantum mechanics.
+
+5
+00:00:13,800 --> 00:00:15,712
+Before we dive into the equation itself,
+
+6
+00:00:15,812 --> 00:00:17,775
+let's understand what a wave function is.
+
+7
+00:00:17,866 --> 00:00:20,805
+A wave function, denoted by the Greek letter psi, is a
+
+8
+00:00:20,905 --> 00:00:24,689
+mathematical function that describes the quantum state of a particle.
+
+9
+00:00:24,783 --> 00:00:26,982
+It depends on position x and time t.
+
+10
+00:00:27,082 --> 00:00:30,430
+The wave function itself is a complex-valued function.
+
+11
+00:00:30,516 --> 00:00:33,259
+Let's visualize what a wave function might look like.
+
+12
+00:00:33,359 --> 00:00:35,458
+Here's a simple example of a wave packet.
+
+13
+00:00:35,550 --> 00:00:38,138
+This wave packet represents the real part of a wave
+
+14
+00:00:38,238 --> 00:00:41,301
+function. It shows the wavelike nature of quantum particles.
+
+15
+00:00:42,400 --> 00:00:45,118
+Now, let's introduce the time-dependent Schrödinger
+
+16
+00:00:45,218 --> 00:00:46,610
+equation in its full glory.
+
+17
+00:00:46,700 --> 00:00:49,088
+Here it is: i times the reduced Planck constant
+
+18
+00:00:49,188 --> 00:00:51,788
+times the partial derivative of psi with respect to
+
+19
+00:00:51,888 --> 00:00:54,488
+time equals the Hamiltonian operator acting on psi.
+
+20
+00:00:54,583 --> 00:00:56,547
+Let's break down each component of this
+
+21
+00:00:56,647 --> 00:00:58,506
+equation to understand what it means.
+
+22
+00:00:58,600 --> 00:01:02,999
+The left side represents the time evolution of the wave function. The
+
+23
+00:01:03,099 --> 00:01:07,303
+i is the imaginary unit, and h-bar is the reduced Planck constant.
+
+24
+00:01:07,400 --> 00:01:10,247
+The right side contains the Hamiltonian operator, which
+
+25
+00:01:10,347 --> 00:01:12,498
+represents the total energy of the system.
+
+26
+00:01:12,583 --> 00:01:15,091
+The Hamiltonian operator can be expanded into
+
+27
+00:01:15,191 --> 00:01:17,524
+kinetic energy and potential energy terms.
+
+28
+00:01:17,616 --> 00:01:20,715
+The first term is the kinetic energy operator, and the
+
+29
+00:01:20,815 --> 00:01:23,263
+second term V of x is the potential energy.
+
+30
+00:01:24,350 --> 00:01:26,911
+For many applications, we use the time-independent
+
+31
+00:01:27,011 --> 00:01:29,944
+Schrödinger equation, which applies to stationary states.
+
+32
+00:01:30,033 --> 00:01:32,477
+In this case, we can separate the wave function
+
+33
+00:01:32,577 --> 00:01:34,426
+into a spatial part and a time part.
+
+34
+00:01:34,516 --> 00:01:38,460
+This leads to the time-independent form: the Hamiltonian acting on psi
+
+35
+00:01:38,560 --> 00:01:41,521
+equals E times psi, where E is the energy eigenvalue.
+
+36
+00:01:41,616 --> 00:01:44,403
+Or, writing out the Hamiltonian explicitly, we get this
+
+37
+00:01:44,503 --> 00:01:47,185
+form with the second derivative and potential energy.
+
+38
+00:01:48,283 --> 00:01:49,746
+Now let's explore one of the
+
+39
+00:01:49,846 --> 00:01:52,258
+most important concepts: probability density.
+
+40
+00:01:52,350 --> 00:01:55,863
+According to the Born interpretation, the square of the absolute
+
+41
+00:01:55,963 --> 00:01:59,195
+value of the wave function gives us the probability density
+
+42
+00:01:59,295 --> 00:02:01,680
+of finding the particle at a given position.
+
+43
+00:02:01,766 --> 00:02:06,560
+This is a probability density, meaning the probability of finding the particle
+
+44
+00:02:06,660 --> 00:02:09,320
+in a small interval is P of x times delta x.
+
+45
+00:02:09,416 --> 00:02:13,026
+Let's visualize this relationship. First, we'll show a wave function.
+
+46
+00:02:13,116 --> 00:02:16,490
+Here's our wave function, oscillating with a Gaussian envelope.
+
+47
+00:02:16,583 --> 00:02:19,181
+Now, when we take the absolute value squared,
+
+48
+00:02:19,281 --> 00:02:21,760
+we get the probability density shown below.
+
+49
+00:02:21,850 --> 00:02:25,071
+Notice how the probability density is always positive and shows
+
+50
+00:02:25,171 --> 00:02:27,496
+where the particle is most likely to be found.
+
+51
+00:02:27,583 --> 00:02:30,575
+The total probability of finding the particle anywhere
+
+52
+00:02:30,675 --> 00:02:33,151
+must equal one. This is called normalization.
+
+53
+00:02:34,250 --> 00:02:36,879
+Let's discuss the physical interpretation and what the
+
+54
+00:02:36,979 --> 00:02:39,609
+Schrödinger equation tells us about quantum mechanics.
+
+55
+00:02:39,700 --> 00:02:44,227
+First, the Schrödinger equation is deterministic. If we know the wave function
+
+56
+00:02:44,327 --> 00:02:47,253
+at one time, we can calculate it at any other time.
+
+57
+00:02:47,350 --> 00:02:50,232
+However, the outcome of measurements is probabilistic.
+
+58
+00:02:50,332 --> 00:02:53,049
+We can only predict probabilities, not certainties.
+
+59
+00:02:53,133 --> 00:02:56,327
+Third, particles exhibit wave-particle duality. They show
+
+60
+00:02:56,427 --> 00:02:59,563
+wave-like behavior through interference and diffraction.
+
+61
+00:02:59,650 --> 00:03:03,732
+Finally, there's the uncertainty principle. We cannot simultaneously know
+
+62
+00:03:03,832 --> 00:03:06,367
+the exact position and momentum of a particle.
+
+63
+00:03:07,466 --> 00:03:10,162
+Let's apply the Schrödinger equation to a classic
+
+64
+00:03:10,262 --> 00:03:13,244
+example: a particle confined in a one-dimensional box.
+
+65
+00:03:13,333 --> 00:03:17,183
+Imagine a particle trapped between two infinitely high potential
+
+66
+00:03:17,283 --> 00:03:19,528
+walls at x equals zero and x equals L.
+
+67
+00:03:19,616 --> 00:03:21,772
+Inside the box, the potential energy is
+
+68
+00:03:21,872 --> 00:03:25,185
+zero, so the Schrödinger equation simplifies significantly.
+
+69
+00:03:25,283 --> 00:03:28,311
+The solutions are standing waves, similar to waves on a
+
+70
+00:03:28,411 --> 00:03:31,269
+string. The wave function must be zero at the walls.
+
+71
+00:03:31,366 --> 00:03:33,920
+Higher energy states have more nodes. Here's
+
+72
+00:03:34,020 --> 00:03:36,935
+the second energy level with two half-wavelengths.
+
+73
+00:03:37,033 --> 00:03:38,599
+And the third energy level with
+
+74
+00:03:38,699 --> 00:03:40,694
+three half-wavelengths fits in the box.
+
+75
+00:03:40,783 --> 00:03:43,559
+The energy levels are quantized, meaning only certain
+
+76
+00:03:43,659 --> 00:03:46,218
+discrete energy values are allowed. The energy of
+
+77
+00:03:46,318 --> 00:03:48,389
+each state is proportional to n squared.
+
+78
+00:03:49,483 --> 00:03:52,857
+Let's summarize what we've learned about the Schrödinger equation.
+
+79
+00:03:52,950 --> 00:03:56,100
+The Schrödinger equation is the fundamental equation of quantum
+
+80
+00:03:56,200 --> 00:03:59,145
+mechanics that describes how wave functions evolve in time.
+
+81
+00:03:59,233 --> 00:04:02,550
+Wave functions contain all information about a quantum system,
+
+82
+00:04:02,650 --> 00:04:05,637
+but they are complex-valued and not directly observable.
+
+83
+00:04:05,733 --> 00:04:08,857
+Probability densities, obtained by squaring the wave function,
+
+84
+00:04:08,957 --> 00:04:11,197
+tell us where we're likely to find particles.
+
+85
+00:04:11,283 --> 00:04:15,014
+Energy levels are often quantized, meaning only discrete values are
+
+86
+00:04:15,114 --> 00:04:17,531
+allowed, as we saw in the particle in a box.
+
+87
+00:04:17,616 --> 00:04:20,481
+This equation revolutionized physics and opened the door
+
+88
+00:04:20,581 --> 00:04:23,498
+to understanding atoms, molecules, and the quantum world.
+
+89
+00:04:23,583 --> 00:04:25,524
+Thank you for joining me on this journey
+
+90
+00:04:25,624 --> 00:04:28,942
+through the Schrödinger equation. Keep exploring quantum mechanics!
+

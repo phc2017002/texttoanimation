@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Manimator Pipeline Flowchart</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: white;
+        }
+
+        .mermaid {
+            background-color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mermaid">
+        flowchart TD
+        Start[User Prompt]
+        ClaudeGen[Claude 4.5 Sonnet - Initial Code Gen]
+        RenderDraft[Render Draft Video]
+
+        subgraph VerificationLoop [Visual Verification Loop - Max 5]
+        direction TB
+        QwenVerify{Qwen 3 VL - Verify Frames}
+        ClaudeFix[Claude 4.5 Sonnet - Fix Code]
+        LoopCount{Retry less than 5?}
+        end
+
+        subgraph ClaudeFallback [Claude Fallback - Max 1]
+        ClaudeRegen[Claude 4.5 Sonnet - Regenerate Code]
+        RegenCount{Regen less than 1?}
+        end
+
+        FinalRender[Final Video Generation]
+        End[Complete]
+
+        Start --> ClaudeGen
+        ClaudeGen --> RenderDraft
+        RenderDraft --> QwenVerify
+
+        QwenVerify -- Issues Found --> LoopCount
+        LoopCount -- Yes --> ClaudeFix
+        ClaudeFix --> RenderDraft
+
+        LoopCount -- No --> RegenCount
+        RegenCount -- Yes --> ClaudeRegen
+        ClaudeRegen --> RenderDraft
+
+        QwenVerify -- No Issues --> FinalRender
+        RegenCount -- No --> FinalRender
+
+        FinalRender --> End
+    </div>
+</body>
+
+</html>
