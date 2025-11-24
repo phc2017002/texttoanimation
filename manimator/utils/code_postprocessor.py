@@ -128,6 +128,72 @@ def fix_undefined_colors(code: str) -> str:
     return code
 
 
+def clean_duplicate_imports(code: str) -> str:
+    """
+    Remove duplicate and incorrect imports.
+    Keep only the correct imports for our architecture.
+    """
+    lines = code.split('\n')
+    cleaned_lines = []
+    seen_imports = set()
+    
+    # Imports to remove (old/wrong patterns)
+    bad_imports = [
+        'from manim_voiceover import VoiceoverScene',
+        'from manimator.services import ElevenLabsService',
+        'from manim_voiceover.services.gtts import GTTSService',
+        'from manim_voiceover.services.elevenlabs import ElevenLabsService',
+    ]
+    
+    for line in lines:
+        stripped = line.strip()
+        
+        # Skip bad imports
+        if any(bad_import in line for bad_import in bad_imports):
+            continue
+        
+        # Track and deduplicate good imports
+        if stripped.startswith('from ') or stripped.startswith('import '):
+            if stripped not in seen_imports:
+                seen_imports.add(stripped)
+                cleaned_lines.append(line)
+        else:
+            cleaned_lines.append(line)
+    
+    return '\n'.join(cleaned_lines)
+
+
+def fix_invalid_manim_parameters(code: str) -> str:
+    """
+    Fix invalid Manim parameters that cause runtime errors.
+    
+    Common issues:
+    - rounded_corners parameter in Rectangle (doesn't exist)
+    - corner_radius parameter in Rectangle (doesn't exist in older Manim versions)
+    - Invalid parameter names
+    """
+    # Remove corner_radius from Rectangle/RoundedRectangle calls (line by line)
+    lines = code.split('\n')
+    fixed_lines = []
+    
+    for line in lines:
+        # Skip lines that are just the parameter
+        if 'corner_radius' in line and '=' in line:
+            # Check if this is a standalone parameter line
+            stripped = line.strip()
+            if stripped.startswith('corner_radius=') or stripped.startswith('rounded_corners='):
+                # Skip this line entirely
+                continue
+        
+        # Remove inline corner_radius/rounded_corners parameters
+        line = re.sub(r',\s*corner_radius\s*=\s*[^,)]+', '', line)
+        line = re.sub(r',\s*rounded_corners\s*=\s*[^,)]+', '', line)
+        
+        fixed_lines.append(line)
+    
+    return '\n'.join(fixed_lines)
+
+
 def post_process_code(code: str) -> str:
     """
     Main entry point for code post-processing.
@@ -143,8 +209,10 @@ def post_process_code(code: str) -> str:
     # Check if we need to add header (before making changes)
     has_undefined_colors = bool(re.search(r'\b(ORANGE|RED|BLUE|GREEN|YELLOW|PURPLE|PINK|TEAL|GRAY)_[A-Z]\b', code))
     
-    # Apply fixes
+    # Apply fixes in order
+    code = clean_duplicate_imports(code)
     code = fix_undefined_colors(code)
+    code = fix_invalid_manim_parameters(code)
     code = fix_surrounding_rectangles(code)
     
     # Add header comment explaining post-processing
@@ -152,11 +220,12 @@ def post_process_code(code: str) -> str:
 # Indexed SurroundingRectangle calls have been disabled as they don't reliably
 # highlight the intended equation parts in MathTex objects.
 # Undefined color constants have been replaced with standard Manim colors.
+# Invalid Manim parameters have been removed or corrected.
 
 """
     
     # Only add header if we actually made changes
-    if '# Auto-disabled:' in code or has_undefined_colors:
+    if '# Auto-disabled:' in code or has_undefined_colors or 'rounded_corners' in code:
         code = header + code
     
     return code

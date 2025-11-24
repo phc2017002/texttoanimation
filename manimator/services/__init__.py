@@ -1,9 +1,14 @@
 """
-ElevenLabs TTS Service for Manim Voiceover
+Services module for Manimator
 
-Natural-sounding AI voices for educational animations.
+Includes ElevenLabs TTS Service and Web Scraper
 """
 
-from .elevenlabs_service import ElevenLabsService
+# Lazy imports to avoid dependency issues
+def __getattr__(name):
+    if name == "ElevenLabsService":
+        from .elevenlabs_service import ElevenLabsService
+        return ElevenLabsService
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
 __all__ = ["ElevenLabsService"]

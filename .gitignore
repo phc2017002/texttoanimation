@@ -10,7 +10,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -47,6 +47,20 @@ Thumbs.db
 *.mp4
 test_*.py
 
+# Generated files
+scene_*.py
+scaling_*.py
+generated_*.py
+*.log
+
+# Generated directories
+media/
+jobs/
+jobs_3d/
+
 # Environment variables
 .env
 .env.local
+
+# Project-specific
+packages.txt

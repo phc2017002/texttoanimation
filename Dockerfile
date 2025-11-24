@@ -56,12 +56,7 @@ COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/pytho
 COPY --from=builder /usr/local/bin/poetry /usr/local/bin/poetry
 COPY manimator ./manimator
 
-ENV PYTHONPATH=/app/manimator
+# ENV PYTHONPATH=/app/manimator
 ENV $(cat .env | xargs)
-EXPOSE 7860
-ENV GRADIO_SERVER_NAME="0.0.0.0"
-CMD ["python", "manimator/gradio_app.py"]
-
-# For using through APIs
-# EXPOSE 8000
-# CMD ["python", "-m", "uvicorn", "manimator.main:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 8000
+CMD ["python", "api_server.py"]

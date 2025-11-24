@@ -2,20 +2,21 @@
 
 Transform any text prompt into stunning mathematical and educational animations powered by AI and the [Manim](https://github.com/ManimCommunity/manim) engine.
 
-## 🎯 What is Text to Animation?
+## 🎯 Overview
 
 This tool converts natural language descriptions into beautiful, professional-quality animations. Simply describe what you want to visualize - whether it's a mathematical concept, scientific principle, or educational explanation - and the system generates an animated video using the powerful Manim library.
 
 ### ✨ Key Features
 
 - **AI-Powered Animation Generation**: Converts text prompts into Manim code automatically
+- **2D & 3D Animations**: Support for both 2D and 3D visualizations
 - **Voiceover Support**: Generates animations with synchronized AI voiceovers
 - **Mathematical Equations**: Renders beautiful LaTeX equations and mathematical visualizations
-- **FastAPI Backend**: RESTful API for programmatic access
+- **Multiple API Servers**: RESTful APIs for programmatic access
 - **Gradio Interface**: User-friendly web interface for easy interaction
 - **Flexible LLM Support**: Works with various AI models (Gemini, DeepSeek, Claude, etc.)
 
-## 📋 System Requirements & Dependencies
+## 📋 System Requirements
 
 ### System Dependencies
 
@@ -36,8 +37,6 @@ eval "$(/usr/libexec/path_helper)"
 sudo tlmgr update --self
 sudo tlmgr install latex-bin amsmath amsfonts amssymb babel-english cbfonts-fd cm-super ctex dvipng environ filehook float fontspec frcursive fundus-calligra jknapltx latexmk metalogo microtype ms physics rsfs scheme-infraonly setspace standalone tools unicode-math xcolor
 ```
-
-**Note:** After installing BasicTeX, you may need to restart your terminal or run `eval "$(/usr/libexec/path_helper)"` to update your PATH. The `tlmgr` commands require sudo password.
 
 #### Ubuntu/Debian
 ```bash
@@ -91,8 +90,8 @@ curl -sSL https://install.python-poetry.org | python3 -
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/phc2017002/testtoanimation.git
-cd testtoanimation
+git clone <repository-url>
+cd texttoanimation
 ```
 
 ### 3. Install Dependencies
@@ -131,36 +130,77 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 ## 💻 Usage
 
-### Running the FastAPI Server
+### Running the API Server
 
-Start the REST API server:
+The unified server supports all input types (text, PDF, URL) and all categories:
 
 ```bash
-poetry run app
+python api_server.py
 ```
 
-Visit `http://localhost:8000/docs` to open the interactive Swagger UI documentation.
+Visit `http://localhost:8000/docs` for interactive API documentation.
 
-### Running the Gradio Interface
+### Using the Python Client
 
-Start the web interface:
+The `api_client.py` provides a Python client library for interacting with the API server:
 
-```bash
-poetry run gradio-app
+```python
+from api_client import ManimVideoClient, QualityLevel
+
+client = ManimVideoClient(base_url="http://localhost:8000")
+
+# Create a video
+job = client.create_video(
+    prompt="Explain the Pythagorean theorem with a visual proof",
+    quality=QualityLevel.MEDIUM
+)
+
+# Check status
+status = client.get_status(job['job_id'])
+
+# Download video when complete
+if status['status'] == 'completed':
+    client.download_video(job['job_id'], 'output.mp4')
 ```
 
-Open your browser and navigate to `http://localhost:7860`.
+### API Examples
 
-### API Example
-
-Generate an animation from a text prompt:
+#### Create Video from Text
 
 ```bash
-curl -X POST \
-     -H "Content-Type: application/json" \
-     -d '{"prompt": "Explain the Pythagorean theorem with a visual proof"}' \
-     --output animation.mp4 \
-     http://localhost:8000/generate-animation
+curl -X POST http://localhost:8000/api/videos \
+  -H "Content-Type: application/json" \
+  -d '{
+    "input_type": "text",
+    "input_data": "Explain how a distributed system handles requests",
+    "quality": "high",
+    "category": "tech_system"
+  }'
+```
+
+#### Create Video from URL
+
+```bash
+curl -X POST http://localhost:8000/api/videos \
+  -H "Content-Type: application/json" \
+  -d '{
+    "input_type": "url",
+    "input_data": "https://example.com/blog/architecture",
+    "quality": "medium",
+    "category": "tech_system"
+  }'
+```
+
+#### Check Job Status
+
+```bash
+curl http://localhost:8000/api/jobs/{job_id}
+```
+
+#### Download Video
+
+```bash
+curl http://localhost:8000/api/videos/{job_id} --output animation.mp4
 ```
 
 ## 🔧 Configuration
@@ -170,11 +210,9 @@ curl -X POST \
 The system supports multiple LLM providers through [LiteLLM](https://docs.litellm.ai/docs/providers). Set your preferred model in the `.env` file:
 
 ```env
-LLM_MODEL=gemini/gemini-2.0-flash-exp
+CODE_GEN_MODEL=gemini/gemini-2.0-flash-exp
 # or
-LLM_MODEL=anthropic/claude-3-5-sonnet-20241022
-# or
-LLM_MODEL=deepseek/deepseek-chat
+CODE_GEN_MODEL=anthropic/claude-3-5-sonnet-20241022
 ```
 
 ### Customizing System Prompts
@@ -182,10 +220,23 @@ LLM_MODEL=deepseek/deepseek-chat
 To modify how the AI generates animations, edit the system prompts in:
 - `manimator/utils/system_prompts.py`
 
-### Adjusting Few-Shot Examples
+## 📚 API Documentation
 
-Improve generation quality by modifying examples in:
-- `manimator/few_shot/few_shot_prompts.py`
+- **POST** `/api/videos` - Create a new video generation job (supports text, PDF, URL)
+- **GET** `/api/jobs/{job_id}` - Get job status
+- **GET** `/api/videos/{job_id}` - Download generated video
+- **GET** `/api/jobs` - List all jobs
+- **GET** `/health` - Health check
+
+**Input Types:**
+- `text` - Plain text prompt
+- `pdf` - Base64 encoded PDF file
+- `url` - URL to scrape content from
+
+**Categories:**
+- `tech_system` - System design, architecture, technical concepts
+- `product_startup` - Product demos, startup pitches, feature showcases
+- `mathematical` - Mathematical concepts, research papers, educational content
 
 ## 🐳 Docker
 
@@ -197,33 +248,32 @@ Build and run the application using Docker:
 docker build -t texttoanimation .
 ```
 
-### Run FastAPI Server
+### Run API Server
 
 ```bash
 docker run -p 8000:8000 texttoanimation
 ```
 
-### Run Gradio Interface
+## 📁 Project Structure
 
-```bash
-docker run -p 7860:7860 texttoanimation
 ```
-
-## 📚 API Endpoints
-
-### Generate Animation
-- **Endpoint**: `/generate-animation`
-- **Method**: POST
-- **Description**: Generates an animated video from a text prompt
-- **Input**: `{"prompt": "Your description here"}`
-- **Output**: MP4 video file
-
-### Health Check
-- **Endpoint**: `/health-check`
-- **Method**: GET
-- **Description**: Check API status
-
-For complete API documentation, visit `/docs` after starting the server.
+texttoanimation/
+├── api_server.py          # Unified API Server (Port 8000)
+├── api_client.py          # Python client library
+├── manimator/             # Core package
+│   ├── api/               # Animation generation logic
+│   ├── inputs/            # Input processing (Text, PDF, URL)
+│   ├── scene/             # Scene base classes
+│   ├── services/          # External services (ElevenLabs)
+│   ├── themes/            # Visual theme definitions
+│   └── utils/             # Utilities (Code fixing, validation)
+├── assets/                # Static assets
+├── generated_scenes/      # Generated Manim code files
+├── docs/                  # Documentation
+├── pyproject.toml         # Poetry configuration
+├── requirements.txt       # Alternative dependency file
+└── README.md              # This file
+```
 
 ## 🎨 Example Prompts
 
@@ -234,6 +284,8 @@ Try these example prompts to see what the system can create:
 - "Show how gradient descent works in machine learning"
 - "Explain quantum entanglement with visual demonstrations"
 - "Demonstrate the concept of limits in calculus"
+- "Create a 3D visualization of a rotating cube"
+- "Show the relationship between sine and cosine waves in 3D"
 
 ## 🙏 Acknowledgements
 
