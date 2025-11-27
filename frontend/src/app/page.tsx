@@ -40,7 +40,7 @@ export default function Home() {
               <ul className="space-y-4">
                 {[
                   "Mathematically precise animations",
-                  "Granular control over every detail",
+                  "Granular control to edit every detail",
                   "Consistent, professional styling",
                   "Explainable and transparent generation"
                 ].map((item, i) => (
