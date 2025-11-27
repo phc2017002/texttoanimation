@@ -163,7 +163,7 @@ export function Hero() {
                     </div>
 
                     {/* Hero Visual - Interactive Pipeline */}
-                    <div className="relative lg:h-[600px] w-full hidden lg:block">
+                    <div className="relative h-[400px] lg:h-[600px] w-full mt-12 lg:mt-0">
                         <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-violet-500/10 rounded-2xl border border-white/10 backdrop-blur-sm p-4">
                             <div className="h-full w-full bg-slate-900/90 rounded-xl overflow-hidden relative group flex flex-col items-center justify-center">
 
@@ -187,7 +187,7 @@ export function Hero() {
                                 </div>
 
                                 {/* Pipeline Container */}
-                                <div className="w-full max-w-lg relative z-10 py-12">
+                                <div className="w-full max-w-lg relative z-10 py-12 scale-75 sm:scale-100 origin-center">
 
                                     {/* Connecting Lines Background */}
                                     <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-800 -translate-y-1/2 rounded-full overflow-hidden">

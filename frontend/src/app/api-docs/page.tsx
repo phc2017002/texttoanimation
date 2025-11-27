@@ -24,7 +24,7 @@ export default function ApiDocs() {
                     {/* Main Documentation Area */}
                     <div className="lg:col-span-2 space-y-8">
                         <Card className="bg-slate-900 border-slate-800">
-                            <CardHeader>
+                            <CardHeader className="p-4 sm:p-6">
                                 <CardTitle className="text-white flex items-center gap-2">
                                     <Terminal className="h-5 w-5 text-blue-400" />
                                     Quick Start
@@ -33,7 +33,7 @@ export default function ApiDocs() {
                                     Generate your first video in 3 steps
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="p-4 sm:p-6">
                                 <Tabs defaultValue="python" className="w-full">
                                     <TabsList className="bg-slate-950 border border-slate-800 mb-4">
                                         <TabsTrigger value="python">Python</TabsTrigger>
@@ -83,23 +83,23 @@ print(f"Job started: {job_id}")`}
                         </Card>
 
                         <Card className="bg-slate-900 border-slate-800">
-                            <CardHeader>
+                            <CardHeader className="p-4 sm:p-6">
                                 <CardTitle className="text-white">Endpoints</CardTitle>
                             </CardHeader>
-                            <CardContent className="space-y-4">
+                            <CardContent className="space-y-4 p-4 sm:p-6">
                                 {[
                                     { method: "POST", path: "/v1/videos", desc: "Create a new video generation job" },
                                     { method: "GET", path: "/v1/jobs/{job_id}", desc: "Check generation status and progress" },
                                     { method: "GET", path: "/v1/videos/{video_id}/download", desc: "Get secure download URL" },
                                     { method: "GET", path: "/v1/usage", desc: "Get current billing period usage" }
                                 ].map((ep, i) => (
-                                    <div key={i} className="flex items-center justify-between p-3 rounded bg-slate-950/50 border border-slate-800/50">
+                                    <div key={i} className="flex flex-col md:flex-row md:items-center justify-between p-3 rounded bg-slate-950/50 border border-slate-800/50 gap-2 md:gap-0">
                                         <div className="flex items-center gap-3">
                                             <span className={`px-2 py-1 rounded text-xs font-bold ${ep.method === "POST" ? "bg-blue-900/30 text-blue-400" : "bg-green-900/30 text-green-400"
                                                 }`}>
                                                 {ep.method}
                                             </span>
-                                            <span className="font-mono text-sm text-slate-300">{ep.path}</span>
+                                            <span className="font-mono text-sm text-slate-300 break-all">{ep.path}</span>
                                         </div>
                                         <span className="text-sm text-slate-500">{ep.desc}</span>
                                     </div>
