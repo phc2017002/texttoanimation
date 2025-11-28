@@ -15,9 +15,7 @@ export function Navbar() {
                 <div className="flex h-16 items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-violet-600">
-                                <Video className="h-4 w-4 text-white" />
-                            </div>
+                            <img src="/logo.svg" alt="Logo" className="h-8 w-8" />
                             <span className="text-lg font-bold text-white">VidSimplify</span>
                         </Link>
                     </div>

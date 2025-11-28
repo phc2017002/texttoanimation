@@ -8,9 +8,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     <div className="col-span-1 md:col-span-1">
                         <Link href="/" className="flex items-center gap-2 mb-6">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-violet-600">
-                                <Video className="h-4 w-4 text-white" />
-                            </div>
+                            <img src="/logo.svg" alt="Logo" className="h-8 w-8" />
                             <span className="text-lg font-bold text-white">VidSimplify</span>
                         </Link>
                         <p className="text-slate-400 text-sm leading-relaxed mb-6">
