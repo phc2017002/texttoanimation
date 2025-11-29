@@ -14,6 +14,7 @@ interface DemoPrompt {
     title: string;
     prompt: string;
     duration: string;
+    videoUrl?: string;
     icon: React.ReactNode;
 }
 
@@ -40,6 +41,7 @@ const DEMO_PROMPTS: DemoPrompt[] = [
         title: "Transformers Architecture",
         prompt: "Explain the research paper 'Attention is all you need: Transformers' in detail. Visualize the encoder-decoder structure and self-attention mechanism.",
         duration: "6:30",
+        videoUrl: "/demos/transformers.mp4",
         icon: <BrainCircuit className="h-6 w-6 text-purple-400" />
     },
     {

@@ -18,21 +18,22 @@ def get_theme_instructions(theme_name: str) -> str:
     if theme_name == "tech":
         return base_instructions + """
         SPECIFIC TECH THEME RULES:
-        1. Use `Rectangle` with `rounded_corners=True` for system nodes.
-        2. Use `Arrow` with `buff=0` for data flows.
-        3. Use `Code` objects for showing snippets.
-        4. Layouts should be structured like architecture diagrams (top-down or left-right).
-        5. Use `ManimColor('{theme.primary_color}')` for active elements.
+        1. Use `RoundedRectangle(corner_radius=0.2)` for system nodes.
+        2. Use `Arrow(buff=0, max_tip_length_to_length_ratio=0.15)` for data flows.
+        3. Use `Code` objects for showing snippets (if applicable).
+        4. Layouts: Use `VGroup.arrange(DOWN, buff=1)` for clear hierarchy.
+        5. Colors: Use high-contrast colors (BLUE, TEAL) against dark background.
+        6. Animations: Use `Create` for lines/arrows, `FadeIn(shift=UP)` for boxes.
         """
         
     elif theme_name == "product":
         return base_instructions + """
         SPECIFIC PRODUCT THEME RULES:
-        1. Use `RoundedRectangle` with significant corner radius for "cards".
-        2. Use soft colors and gradients if possible.
-        3. Animations should be smooth (`run_time=0.8`, `rate_func=smooth`).
-        4. Text should be large, bold, and friendly.
-        5. Focus on "benefits" and "features" visual metaphors.
+        1. Use `RoundedRectangle(corner_radius=0.5)` for "cards" or "screens".
+        2. Use `Text(font="Sans", weight=BOLD)` for friendly typography.
+        3. Animations: Use `GrowFromCenter` for popping elements, `FadeIn(shift=UP)` for smooth entry.
+        4. Focus on "benefits": Use `Indicate` or `Circumscribe` to highlight key features.
+        5. Layout: Use `VGroup.arrange(RIGHT, buff=1)` for side-by-side comparisons.
         """
         
     else:  # mathematical
@@ -41,7 +42,8 @@ def get_theme_instructions(theme_name: str) -> str:
         1. Use standard Manim `MathTex` for all equations.
         2. Use `NumberPlane` or `Axes` for graphs.
         3. Precision is key. Use `rate_func=linear` for continuous motion.
-        4. Keep it clean and high-contrast (Chalkboard style).
+        4. Keep it clean: Use `Write` for equations, `Create` for graphs.
+        5. Highlight: Use `SurroundingRectangle(color=YELLOW)` to box important results.
         """
 
 def get_scene_template(theme_name: str) -> str:

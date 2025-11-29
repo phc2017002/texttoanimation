@@ -47,7 +47,7 @@ MANIM API CONSTRAINTS (CRITICAL - DO NOT HALLUCINATE):
 **Rectangle Parameters** (ONLY these are valid):
 - width, height, color, fill_color, fill_opacity, stroke_color, stroke_width, stroke_opacity
 - DO NOT USE: corner_radius, rounded_corners, border_radius (these do NOT exist)
-- For rounded rectangles, use RoundedRectangle instead
+- For rounded rectangles, use `RoundedRectangle(corner_radius=0.5, ...)` instead
 
 **Common Mobjects**:
 - Circle(radius=1.0, color=WHITE, fill_opacity=0, stroke_width=4)
@@ -58,26 +58,26 @@ MANIM API CONSTRAINTS (CRITICAL - DO NOT HALLUCINATE):
 - Arrow(start, end, color=WHITE, stroke_width=4, buff=0)
 - Dot(point, radius=0.08, color=WHITE)
 - VGroup() - for grouping objects
+- SurroundingRectangle(mobject, color=YELLOW, buff=0.1)
 
 **Valid Colors** (use ONLY these):
 - WHITE, BLACK, RED, GREEN, BLUE, YELLOW, ORANGE, PURPLE, PINK, TEAL, GRAY
-- DO NOT use: RED_A, BLUE_E, ORANGE_C, etc. (color variants don't exist)
 - For custom colors, use hex strings: "#FF5733"
 
-**Positioning**:
-- obj.next_to(other, direction, buff=0.5) where direction is UP, DOWN, LEFT, RIGHT
-- obj.shift(direction * distance) where direction is UP, DOWN, LEFT, RIGHT
-- obj.move_to(point or other_obj)
-- obj.to_edge(direction, buff=0.5)
-- obj.align_to(other, direction)
+**Positioning & Layout (NO OVERLAPS!)**:
+- **CRITICAL**: Objects MUST NOT overlap unless intended.
+- Use `VGroup(obj1, obj2).arrange(DOWN, buff=0.5)` to automatically stack items.
+- Use `obj.next_to(other, direction, buff=0.5)` for relative positioning.
+- Use `obj.to_edge(UP, buff=1.0)` for titles.
+- Use `obj.shift(RIGHT * 2)` for fine-tuning.
+- **AVOID** absolute coordinates like `move_to([3, 2, 0])` unless necessary.
 
-**Animations** (use ONLY these):
-- Write(obj), Create(obj), FadeIn(obj), FadeOut(obj)
-- Transform(obj1, obj2), ReplacementTransform(obj1, obj2)
-- GrowFromCenter(obj), ShrinkToCenter(obj)
-- ShowCreation(obj) - DEPRECATED, use Create() instead
-- self.play(animation, run_time=1.0)
-- self.wait(duration)
+**Advanced Animations** (Make it look PREMIUM):
+- **Transitions**: `TransformMatchingShapes`, `TransformMatchingTex`
+- **Creation**: `Write(obj)`, `Create(obj)`, `DrawBorderThenFill(obj)`, `FadeIn(obj, shift=UP)`
+- **Emphasis**: `Indicate(obj)`, `Circumscribe(obj)`, `Wiggle(obj)`, `FocusOn(obj)`
+- **Grouping**: `self.play(LaggedStart(*[Write(o) for o in group], lag_ratio=0.1))`
+- **Motion**: `self.play(obj.animate.scale(1.2).set_color(RED))`
 
 {theme_instructions}
 
@@ -92,27 +92,42 @@ class GeneratedScene(VoiceoverScene):
     {scene_template}
         
         # Initialize voiceover
-        # For Tech: voice_id="Adam"
-        # For Product: voice_id="Bella"
-        # For Math: voice_id="Rachel"
         self.set_speech_service(SimpleElevenLabsService(voice_id="Rachel"))
         
-        # Example Step 1
-        with self.voiceover(text="Introduction to the topic.") as tracker:
-            title = Text("Title", font_size=48)
-            self.play(Write(title))
+        # --- Section 1: Intro ---
+        with self.voiceover(text="Let's explore this concept.") as tracker:
+            title = Text("The Concept", font_size=64, weight=BOLD).to_edge(UP)
+            self.play(Write(title), run_time=1)
+            
+        # --- Section 2: Main Content ---
+        with self.voiceover(text="Here are the key components.") as tracker:
+            # Use VGroup for layout safety
+            item1 = Text("1. First Item", font_size=36)
+            item2 = Text("2. Second Item", font_size=36)
+            item3 = Text("3. Third Item", font_size=36)
+            
+            group = VGroup(item1, item2, item3).arrange(DOWN, buff=0.5, aligned_edge=LEFT)
+            group.next_to(title, DOWN, buff=1.0)
+            
+            # Animate with LaggedStart for premium feel
+            self.play(LaggedStart(*[FadeIn(i, shift=RIGHT) for i in group], lag_ratio=0.3))
+            
+        # --- Section 3: Detail ---
+        with self.voiceover(text="Notice how they interact.") as tracker:
+            self.play(Indicate(item1, color=YELLOW))
+            self.play(item2.animate.scale(1.1))
             
         # Cleanup
-        self.play(FadeOut(title))
+        self.play(FadeOut(Group(title, group)))
 ```
 
 GENERAL BEST PRACTICES:
-1. **Clean Transitions**: Always `FadeOut` objects before moving to the next concept.
-2. **No Overlap**: Ensure objects are positioned correctly (`next_to`, `shift`, `to_edge`).
-3. **Duration**: The video should be substantial. Explain concepts in depth.
-4. **Math**: Use `MathTex` for equations (LaTeX). Use `Text` for labels.
-5. **Grouping**: Use `VGroup` to manage multiple objects together.
-6. **NEVER hallucinate parameters**: Only use parameters listed above.
+1.  **Typography**: Use `Text` for labels/headings, `MathTex` ONLY for math. Align text properly (`aligned_edge=LEFT`).
+2.  **Visual Hierarchy**: Title (64pt) > Heading (48pt) > Body (36pt) > Label (24pt).
+3.  **No Overlap**: ALWAYS use `arrange` or `next_to` with `buff`. Check your spacing!
+4.  **Motion**: Use `shift=UP/DOWN` in `FadeIn` for dynamic entrances. Use `LaggedStart` for lists.
+5.  **Cleanliness**: Don't clutter the screen. Fade out old objects before showing new ones.
+6.  **NEVER hallucinate parameters**: Only use parameters listed above.
 
 Generate the COMPLETE Python code for the requested topic.
 """

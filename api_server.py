@@ -421,7 +421,7 @@ class VideoGenerator:
             "manim",
             quality_flag,
             "--media_dir",
-            str(Config.VIDEOS_DIR),
+            str(Config.BASE_DIR / "media"),
             str(code_file),
             scene_name,
         ]
